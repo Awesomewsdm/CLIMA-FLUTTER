@@ -1,8 +1,8 @@
 import 'package:clima/screens/location.dart';
+import 'package:clima/services/networking.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
-
+const apiKey = '80486398e37b6a147c0baad6efa7bd09';
 
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({super.key});
@@ -12,40 +12,36 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class LoadingScreenState extends State<LoadingScreen> {
+  double? latitude;
+  double? longitude;
   @override
   void initState() {
-    getLocation();
+    getLocationData();
     super.initState();
   }
 
-  void getLocation() async {
+  void getLocationData() async {
     Location newLocation = Location();
     await newLocation.getCurrentLocation();
-    // ignore: avoid_print
-    print(newLocation.latitude);
-    // ignore: avoid_print
-    print(newLocation.longitude);
-  }
+    latitude = newLocation.latitude!;
+    longitude = newLocation.longitude!;
 
-  void getData () async{
-    var url =
-      Uri.https('www.googleapis.com', '/books/v1/volumes', {'q': '{http}'});
-    // ignore: unused_local_variable
-    http.Response response = await  http.get(url);
+    NetworkHelper networkHelper = NetworkHelper();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            getLocation();
-            //Get the current location
-          },
-          child: const Text('Get Location'),
-        ),
-      ),
-    );
+    return const Scaffold();
   }
 }
+
+
+ // body: Center(
+      //   child: ElevatedButton(
+      //     onPressed: () {
+      //       getLocation();
+      //       //Get the current location
+      //     },
+      //     child: const Text('Get Location'),
+      //   ),
+      // ),
