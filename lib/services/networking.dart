@@ -2,24 +2,21 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class NetworkHelper {
-  NetworkHelper({this.newUrl});
-  final String? newUrl;
+  NetworkHelper({required this.url});
+  final String? url;
 
-  void getData() async {
-   
-
-    http.Response response = await http.get(Uri.parse(newUrl!),);
+  Future<void> getData() async {
+    http.Response response = await http.get(
+      Uri.parse(url!),
+    );
     if (response.statusCode == 200) {
       String data = response.body;
 
       var decodedData = jsonDecode(data);
-      var temperature = decodedData.list[0].main.temp;
 
-      var condition = decodedData.list[0].weather[0].id;
-
-      var cityName = decodedData.city.name;
-      print(temperature);
+      return decodedData;
     } else {
+      // ignore: avoid_print
       print(response.statusCode);
     }
   }
