@@ -2,7 +2,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class NetworkHelper {
-  NetworkHelper({required this.url});
+  NetworkHelper({this.url});
   final String? url;
 
   Future<void> getData() async {
@@ -23,8 +23,5 @@ class NetworkHelper {
 }
  
 
-
-      // var url = Uri.https('samples.openweathermap.org', '/data/2.5/forecast',
-    //     {'id': '524901', 'appid': 'b1b15e88fa797225412429c1c50c122a1'});
 
 
